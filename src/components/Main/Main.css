@@ -1,9 +1,8 @@
 .main {
-  margin: 20px auto;
+  margin: auto 50px;
 }
 .img {
-  width: 200px;
-  height: 200px;
+  width: 100%;
   background-color: #b44343;
 }
 .textarea {
