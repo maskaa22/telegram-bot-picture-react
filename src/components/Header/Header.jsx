@@ -4,13 +4,17 @@ import './Header.css';
 
 const Header = () => {
 
+
+
   const {onClose } = useTelegram();
+
+
 
   return (
     <div className="header">
       <h2 className="h2">Привіт!</h2>
       <div className="flex-button">
-        <Button>Завантажити фото</Button>
+        {/* <input type="file" placeholder="Завантажити фото"/> */}
         <Button onClick={onClose}>Закрить</Button>
       </div>
     </div>

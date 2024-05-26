@@ -1,17 +1,26 @@
 import Button from "../Button/Button";
 import { useTelegram } from "../../hooks/useTelegram";
 import './Main.css';
+import { useState } from "react";
 
 const Main = () => {
 
-  const {onToogleButton} = useTelegram();
+  const { onToogleButton } = useTelegram();
+
+  const [url, setUrl] = useState();
+
+  const Upload = () => <input type="file" />
 
   return (
     <div className="main">
 
-      <img alt="for chat II" src="" className="img"/>
+      <Upload onUpload={setUrl}>
+        <img src={url} alt="" className="img" />
+      </Upload>
 
-      <div><textarea cols={11} rows={5} className="textarea"/></div>
+      {/* <img alt="for chat II" src="" className="img"/> */}
+
+      <div><textarea cols={11} rows={5} className="textarea" /></div>
 
       <div><Button onClick={onToogleButton}>Що зображено на малюнку?</Button></div>
 
