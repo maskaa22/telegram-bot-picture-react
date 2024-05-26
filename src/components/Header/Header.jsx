@@ -4,11 +4,11 @@ import './Header.css';
 
 const Header = () => {
 
-  const { user, onClose } = useTelegram();
+  const {onClose } = useTelegram();
 
   return (
     <div className="header">
-      <h2>Привіт - <span className="username">{user?.username}</span>!</h2>
+      <h2 className="h2">Привіт!</h2>
       <div className="flex-button">
         <Button>Завантажити фото</Button>
         <Button onClick={onClose}>Закрить</Button>

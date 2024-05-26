@@ -11,9 +11,9 @@ const Main = () => {
 
       <img alt="for chat II" src="" className="img"/>
 
-      <textarea cols={11} rows={5} className="textarea"/>
+      <div><textarea cols={11} rows={5} className="textarea"/></div>
 
-      <Button onClick={onToogleButton}>Що зображено на малюнку?</Button>
+      <div><Button onClick={onToogleButton}>Що зображено на малюнку?</Button></div>
 
     </div>
   )
