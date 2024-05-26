@@ -1,25 +1,34 @@
 import Button from "../Button/Button";
 import { useTelegram } from "../../hooks/useTelegram";
 import './Main.css';
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 const Main = () => {
 
-  const { onToogleButton } = useTelegram();
+  const [image, setImage] = useState('');
 
-  const [url, setUrl] = useState();
+  const { onToogleButton, tg } = useTelegram();
 
-  const Upload = () => <input type="file" />
+  const handleFileChange = (e) => {
+    console.log(e.target.value)
+    setImage(e.target.value);
+  }
 
-  console.log(url)
+  const onSendData = useCallback(()=> {
+    const data = {image};
+    tg.sendData(JSON.stringify(data))
+  }, [image])
+
+  useEffect(() => {
+    tg.onEvent('mainButtonClicked', onSendData)
+    return () => {tg.offEvent('mainButtonClicked', onSendData)}
+  }, [onSendData])
+
+  
   return (
     <div className="main">
 
-      {/* <Upload onUpload={setUrl}>
-        <img src={url} alt="" />
-      </Upload> */}
-
-    <input type="file" placeholder="Завантажити фото"/>
+    <input type="file" placeholder="Завантажити фото" onChange={(e) => handleFileChange(e)}/>
 
       {/* <img alt="for chat II" src="" className="img"/> */}
 
