@@ -15,14 +15,19 @@ const Main = () => {
     <div className="main">
 
       <Upload onUpload={setUrl}>
-        <img src={url} alt="" className="img" />
+        <img src={url} alt="" />
       </Upload>
+
+
 
       {/* <img alt="for chat II" src="" className="img"/> */}
 
-      <div><textarea cols={11} rows={5} className="textarea" /></div>
 
-      <div><Button onClick={onToogleButton}>Що зображено на малюнку?</Button></div>
+
+
+      {/* <div><textarea cols={11} rows={5} className="textarea" /></div>
+
+      <div><Button onClick={onToogleButton}>Що зображено на малюнку?</Button></div> */}
 
     </div>
   )
