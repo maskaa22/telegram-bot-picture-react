@@ -72,7 +72,7 @@ const Main = () => {
     formData.append('image', e.target.files[0]);
 
     try {
-      const response = await axios.post('http://localhost:3000/upload', formData);
+      const response = await axios.post('http://localhost:5000/upload', formData);
       setImagePath(response.data.imagePath);
     } catch (error) {
       console.error('Error uploading image:', error);
