@@ -14,17 +14,6 @@ const Main = () => {
   //   setImage(e.target.value);
   // }
 
-  const onSendData = useCallback(()=> {
-    const data = {image};
-    tg.sendData(JSON.stringify(data))
-  }, [image])
-
-  useEffect(() => {
-    tg.onEvent('mainButtonClicked', onSendData)
-    return () => {tg.offEvent('mainButtonClicked', onSendData)}
-  }, [onSendData])
-
-  
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     const reader = new FileReader();
@@ -37,6 +26,19 @@ const Main = () => {
       reader.readAsDataURL(file);
     }
   }
+
+  const onSendData = useCallback(()=> {
+    const data = {image};
+    tg.sendData(JSON.stringify(data))
+  }, [image, tg])
+
+  useEffect(() => {
+    tg.onEvent('mainButtonClicked', onSendData)
+    return () => {tg.offEvent('mainButtonClicked', onSendData)}
+  }, [onSendData, tg])
+
+  
+  
 
   return (
     <div className="main">
