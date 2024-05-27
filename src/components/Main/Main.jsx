@@ -37,8 +37,8 @@
 //     return () => {tg.offEvent('mainButtonClicked', onSendData)}
 //   }, [onSendData, tg])
 
-  
-  
+
+
 
 //   return (
 //     <div className="main">
@@ -70,13 +70,22 @@ const Main = () => {
   const { tg } = useTelegram();
 
   const [imagePath, setImagePath] = useState('');
+  const [selectedImage, setSelectedImage] = useState(null);
 
-  const handleImageChange = async (e) => {
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    setSelectedImage(URL.createObjectURL(file));
+  }
+
+  const handleUpload = async (e) => {
     const formData = new FormData();
-    formData.append('image', e.target.files[0]);
+    formData.append('image', selectedImage);
 
     try {
-      const response = await axios.post('http://localhost:5000/upload', formData);
+      const response = await axios.post('http://localhost:5000/upload', formData, {
+        headers: { 'Content-Type': 'multipart/form-data' }
+      });
+
       setImagePath(response.data.imagePath);
     } catch (error) {
       console.error('Error uploading image:', error);
@@ -95,14 +104,16 @@ const Main = () => {
     }
   };
 
-    const onSendData = useCallback(()=> {
-    const data = {imagePath};
+  console.log(imagePath);
+
+  const onSendData = useCallback(() => {
+    const data = { imagePath };
     tg.sendData(JSON.stringify(data))
   }, [imagePath, tg])
 
   useEffect(() => {
     tg.onEvent('mainButtonClicked', onSendData)
-    return () => {tg.offEvent('mainButtonClicked', onSendData)}
+    return () => { tg.offEvent('mainButtonClicked', onSendData) }
   }, [onSendData, tg])
 
   return (
@@ -113,6 +124,7 @@ const Main = () => {
         accept="image/*"
         onChange={handleImageChange}
       />
+      {selectedImage && <img src={selectedImage} alt='selected'/>}
       {imagePath && <img src={imagePath} alt="Uploaded" />}
       <button onClick={mainButtonClicked}>Отправить на чат</button>
     </div>
