@@ -104,12 +104,12 @@ const Main = () => {
     }
   };
 
-  console.log(imagePath);
+  console.log(selectedImage);
 
   const onSendData = useCallback(() => {
-    const data = { imagePath };
+    const data = { selectedImage };
     tg.sendData(JSON.stringify(data))
-  }, [imagePath, tg])
+  }, [selectedImage, tg])
 
   useEffect(() => {
     tg.onEvent('mainButtonClicked', onSendData)
