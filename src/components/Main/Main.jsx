@@ -61,10 +61,14 @@
 
 // export default Main;
 
-import React, { useState } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import axios from 'axios';
+import { useTelegram } from "../../hooks/useTelegram";
 
 const Main = () => {
+
+  const { tg } = useTelegram();
+
   const [imagePath, setImagePath] = useState('');
 
   const handleImageChange = async (e) => {
@@ -80,6 +84,9 @@ const Main = () => {
   };
 
   const mainButtonClicked = async () => {
+
+    tg.MainButton.show();
+
     if (imagePath) {
       // Здесь можно выполнить дополнительные действия с загруженным изображением перед отправкой, если необходимо
       console.log('Sending image to chat bot:', imagePath);
@@ -87,6 +94,16 @@ const Main = () => {
       console.log('No image uploaded');
     }
   };
+
+    const onSendData = useCallback(()=> {
+    const data = {imagePath};
+    tg.sendData(JSON.stringify(data))
+  }, [imagePath, tg])
+
+  useEffect(() => {
+    tg.onEvent('mainButtonClicked', onSendData)
+    return () => {tg.offEvent('mainButtonClicked', onSendData)}
+  }, [onSendData, tg])
 
   return (
     <div>
