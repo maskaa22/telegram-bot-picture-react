@@ -69,40 +69,41 @@ const Main = () => {
 
   const { tg } = useTelegram();
 
-  const [imagePath, setImagePath] = useState('');
+  // const [imagePath, setImagePath] = useState('');
   const [selectedImage, setSelectedImage] = useState(null);
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     setSelectedImage(URL.createObjectURL(file));
+    tg.MainButton.show();
   }
 
-  const handleUpload = async (e) => {
-    const formData = new FormData();
-    formData.append('image', selectedImage);
+  // const handleUpload = async (e) => {
+  //   const formData = new FormData();
+  //   formData.append('image', selectedImage);
 
-    try {
-      const response = await axios.post('http://localhost:5000/upload', formData, {
-        headers: { 'Content-Type': 'multipart/form-data' }
-      });
+  //   try {
+  //     const response = await axios.post('http://localhost:5000/upload', formData, {
+  //       headers: { 'Content-Type': 'multipart/form-data' }
+  //     });
 
-      setImagePath(response.data.imagePath);
-    } catch (error) {
-      console.error('Error uploading image:', error);
-    }
-  };
+  //     setImagePath(response.data.imagePath);
+  //   } catch (error) {
+  //     console.error('Error uploading image:', error);
+  //   }
+  // };
 
-  const mainButtonClicked = async () => {
+  // const mainButtonClicked = async () => {
 
-    tg.MainButton.show();
+  //   tg.MainButton.show();
 
-    if (imagePath) {
-      // Здесь можно выполнить дополнительные действия с загруженным изображением перед отправкой, если необходимо
-      console.log('Sending image to chat bot:', imagePath);
-    } else {
-      console.log('No image uploaded');
-    }
-  };
+  //   // if (imagePath) {
+  //   //   // Здесь можно выполнить дополнительные действия с загруженным изображением перед отправкой, если необходимо
+  //   //   console.log('Sending image to chat bot:', imagePath);
+  //   // } else {
+  //   //   console.log('No image uploaded');
+  //   //}
+  // };
 
   console.log(selectedImage);
 
@@ -125,8 +126,8 @@ const Main = () => {
         onChange={handleImageChange}
       />
       {selectedImage && <img src={selectedImage} alt='selected'/>}
-      {imagePath && <img src={imagePath} alt="Uploaded" />}
-      <button onClick={mainButtonClicked}>Отправить на чат</button>
+      {/* {imagePath && <img src={imagePath} alt="Uploaded" />} */}
+      {/* <button onClick={mainButtonClicked}>Отправить на чат</button> */}
     </div>
   );
 };
