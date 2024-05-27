@@ -28,7 +28,7 @@ const Main = () => {
   }
 
   const onSendData = useCallback(()=> {
-    const data = {image};
+    const data = '{image}';
     tg.sendData(JSON.stringify(data))
   }, [image, tg])
 
