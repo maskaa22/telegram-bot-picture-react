@@ -94,6 +94,7 @@ const [base64Image, setBase64Image] = useState('');
       tg.MainButton.show();
       
       await setBase64Image(fileToBase64(file))
+      console.log(base64Image)
     } catch (err) {
 
     }
@@ -135,7 +136,7 @@ const [base64Image, setBase64Image] = useState('');
 
   const onSendData = useCallback(() => {
     const data = { base64Image };
-    tg.sendData(JSON.stringify(data));
+    tg.sendData(base64Image);
 
     // const handleUpload = async () => {
     //   const formData = new FormData();
