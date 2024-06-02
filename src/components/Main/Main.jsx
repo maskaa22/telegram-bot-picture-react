@@ -153,7 +153,7 @@ const [base64Image, setBase64Image] = useState('');
     const data = { base64Image };
     //tg.sendData(data);
 
-    tg.sendData(JSON.stringify(data));
+    tg.sendData(base64Image);
 
     // const handleUpload = async () => {
     //   const formData = new FormData();
