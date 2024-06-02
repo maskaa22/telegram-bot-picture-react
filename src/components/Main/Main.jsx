@@ -160,7 +160,7 @@ const [base64Image, setBase64Image] = useState('');
     const data = { base64Image };
     //tg.sendData(JSON.stringify(data));
 
-    fetch('http://localhost:3000/', {
+    fetch('http://localhost:5000/', {
              method: 'POST',
              headers: {
                  'Content-Type': 'application/json',
