@@ -69,14 +69,36 @@ const Main = () => {
 
   const { tg } = useTelegram();
 
-  const [image, setImage] = useState(null);
+
   const [selectedImage, setSelectedImage] = useState(null);
 
-  const handleImageChange = (e) => {
+
+  const fileToBase64 = (file) => {
+    return new Promise((res, req) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        res(reader.result.split(',')[1]);
+        reader.onerror = (err) => { req(err); }
+      }
+    })
+  }
+
+const [base64Image, setBase64Image] = useState('');
+
+  const handleImageChange = async (e) => {
     const file = e.target.files[0];
-    setImage(file);
-    setSelectedImage(URL.createObjectURL(file));
-    tg.MainButton.show();
+
+    try {
+      setSelectedImage(URL.createObjectURL(file));
+      tg.MainButton.show();
+      
+      await setBase64Image(fileToBase64(file))
+    } catch (err) {
+
+    }
+
+    
   }
 
   // const handleUpload = async (e) => {
@@ -108,40 +130,30 @@ const Main = () => {
 
   console.log(selectedImage);
 
-  // const handleUpload = async () => {
-  //   const formData = new FormData();
-  //   formData.append('image', image);
-  //   try {
-  //     const response = await axios.post('http://localhost:5000/', formData, {
-  //       headers: {'Content-Type': 'multipart/form-data'}
-  //     });
-  //     console.log(response.data);
-  //   }
-  //   catch (err) {
-  //     console.log(err);
-  //   }
-  // }
+ 
+
 
   const onSendData = useCallback(() => {
-    const data = { selectedImage };
+    const data = { base64Image };
     tg.sendData(JSON.stringify(data));
 
-    const handleUpload = async () => {
-      const formData = new FormData();
-      formData.append('image', image);
-      try {
-        const response = await axios.post('http://localhost:5000/', formData, {
-          headers: {'Content-Type': 'multipart/form-data'}
-        });
-        console.log(response.data);
-      }
-      catch (err) {
-        console.log(err);
-      }
-    }
-    handleUpload();
-   
-  }, [selectedImage, tg, image])
+    // const handleUpload = async () => {
+    //   const formData = new FormData();
+    //   formData.append('image', image);
+    //   try {
+
+    //     const response = await axios.post('http://localhost:5000/', formData, {
+    //       headers: {'Content-Type': 'multipart/form-data'}
+    //     });
+    //     console.log(response.data);
+    //   }
+    //   catch (err) {
+    //     console.log(err);
+    //   }
+    // }
+    // handleUpload();
+
+  }, [selectedImage, tg])
 
   useEffect(() => {
     tg.onEvent('mainButtonClicked', onSendData)
@@ -156,7 +168,7 @@ const Main = () => {
         accept="image/*"
         onChange={handleImageChange}
       />
-      {selectedImage && <img src={selectedImage} alt='selected'/>}
+      {selectedImage && <img src={selectedImage} alt='selected' />}
       {/* {imagePath && <img src={imagePath} alt="Uploaded" />} */}
       {/* <button onClick={mainButtonClicked}>Отправить на чат</button> */}
     </div>
