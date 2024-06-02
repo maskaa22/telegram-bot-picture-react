@@ -69,11 +69,12 @@ const Main = () => {
 
   const { tg } = useTelegram();
 
-  // const [imagePath, setImagePath] = useState('');
+  const [image, setImage] = useState(null);
   const [selectedImage, setSelectedImage] = useState(null);
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
+    setImage(file);
     setSelectedImage(URL.createObjectURL(file));
     tg.MainButton.show();
   }
@@ -107,10 +108,40 @@ const Main = () => {
 
   console.log(selectedImage);
 
+  // const handleUpload = async () => {
+  //   const formData = new FormData();
+  //   formData.append('image', image);
+  //   try {
+  //     const response = await axios.post('http://localhost:5000/', formData, {
+  //       headers: {'Content-Type': 'multipart/form-data'}
+  //     });
+  //     console.log(response.data);
+  //   }
+  //   catch (err) {
+  //     console.log(err);
+  //   }
+  // }
+
   const onSendData = useCallback(() => {
     const data = { selectedImage };
-    tg.sendData(JSON.stringify(data))
-  }, [selectedImage, tg])
+    tg.sendData(JSON.stringify(data));
+
+    const handleUpload = async () => {
+      const formData = new FormData();
+      formData.append('image', image);
+      try {
+        const response = await axios.post('http://localhost:5000/', formData, {
+          headers: {'Content-Type': 'multipart/form-data'}
+        });
+        console.log(response.data);
+      }
+      catch (err) {
+        console.log(err);
+      }
+    }
+    handleUpload();
+   
+  }, [selectedImage, tg, image])
 
   useEffect(() => {
     tg.onEvent('mainButtonClicked', onSendData)
