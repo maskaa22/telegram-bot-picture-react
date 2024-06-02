@@ -173,8 +173,8 @@ const [base64Image, setBase64Image] = useState('');
   // }, [tg, base64Image])
 
   useEffect(() => {
-    tg.onEvent('mainButtonClicked', function() {tg.sendData(JSON.stringify({data: base64Image}))})
-    return () => { tg.offEvent('mainButtonClicked', function() {tg.sendData(JSON.stringify({data: base64Image}))}) }
+    tg.onEvent('mainButtonClicked', function() {tg.sendData(base64Image)})
+    return () => { tg.offEvent('mainButtonClicked', function() {tg.sendData(base64Image)}) }
   }, [tg, base64Image])
 
   return (
