@@ -73,27 +73,42 @@ const Main = () => {
   const [selectedImage, setSelectedImage] = useState(null);
 
 
-  const fileToBase64 = (file) => {
-    return new Promise((res, req) => {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = () => {
-        res(reader.result.split(',')[1]);
-        reader.onerror = (err) => { req(err); }
-      }
-    })
-  }
+  // const fileToBase64 = (file) => {
+  //   return new Promise((res, req) => {
+  //     const reader = new FileReader();
+  //     reader.readAsDataURL(file);
+  //     reader.onload = () => {
+  //       res(reader.result.split(',')[1]);
+  //       reader.onerror = (err) => { req(err); }
+  //     }
+  //   })
+  // }
 
 const [base64Image, setBase64Image] = useState('');
 
-  const handleImageChange = async (e) => {
+  const handleImageChange = (e) => {
     const file = e.target.files[0];
 
     try {
       setSelectedImage(URL.createObjectURL(file));
       tg.MainButton.show();
       
-      await setBase64Image(fileToBase64(file))
+      const reader = new FileReader();
+
+      reader.onloadend = () => {
+              setBase64Image(reader.result);
+            };
+        
+            if(file) {
+              reader.readAsDataURL(file);
+            }
+
+      // reader.onload = function(event) {
+      //   const qq = event.target.result.split(',')[1];
+      //   setBase64Image(qq);
+      // }
+
+      // await setBase64Image(fileToBase64(file))
       console.log(base64Image)
     } catch (err) {
 
@@ -129,14 +144,14 @@ const [base64Image, setBase64Image] = useState('');
   //   //}
   // };
 
-  console.log(selectedImage);
+  console.log(base64Image)
 
  
 
 
   const onSendData = useCallback(() => {
     const data = { base64Image };
-    tg.sendData(base64Image);
+    tg.sendData(JSON.stringify(data));
 
     // const handleUpload = async () => {
     //   const formData = new FormData();
@@ -154,7 +169,7 @@ const [base64Image, setBase64Image] = useState('');
     // }
     // handleUpload();
 
-  }, [selectedImage, tg])
+  }, [tg, base64Image])
 
   useEffect(() => {
     tg.onEvent('mainButtonClicked', onSendData)
