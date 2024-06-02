@@ -158,9 +158,15 @@ const [base64Image, setBase64Image] = useState('');
 
   const onSendData = useCallback(() => {
     const data = { base64Image };
-    //tg.sendData(data);
+    //tg.sendData(JSON.stringify(data));
 
-    tg.sendData(JSON.stringify(data));
+    fetch('http://localhost:3000/', {
+             method: 'POST',
+             headers: {
+                 'Content-Type': 'application/json',
+             },
+             body: JSON.stringify(data)
+         })
 
     // const handleUpload = async () => {
     //   const formData = new FormData();
@@ -178,7 +184,7 @@ const [base64Image, setBase64Image] = useState('');
     // }
     // handleUpload();
 
-  }, [tg, base64Image])
+  }, [base64Image])
 
   useEffect(() => {
     tg.onEvent('mainButtonClicked', onSendData)
