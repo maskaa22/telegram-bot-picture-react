@@ -109,7 +109,7 @@ const [base64Image, setBase64Image] = useState('');
       // }
 
       // await setBase64Image(fileToBase64(file))
-      console.log(base64Image)
+
     } catch (err) {
 
     }
@@ -151,7 +151,9 @@ const [base64Image, setBase64Image] = useState('');
 
   const onSendData = useCallback(() => {
     const data = { base64Image };
-    tg.sendData(JSON.stringify(data));
+    tg.sendData(data);
+
+    // tg.sendData(JSON.stringify(data));
 
     // const handleUpload = async () => {
     //   const formData = new FormData();
