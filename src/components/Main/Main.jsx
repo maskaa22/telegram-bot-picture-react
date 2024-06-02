@@ -146,37 +146,36 @@ const [base64Image, setBase64Image] = useState('');
 
 
 
- 
 
 
-  const onSendData = useCallback(() => {
-    const data = { base64Image };
-    //tg.sendData(data);
+  // const onSendData = useCallback(() => {
+  //   const data = { base64Image };
+  //   //tg.sendData(data);
 
-    tg.sendData('base64Image');
+  //   tg.sendData(JSON.stringify(data));
 
-    // const handleUpload = async () => {
-    //   const formData = new FormData();
-    //   formData.append('image', image);
-    //   try {
+  //   // const handleUpload = async () => {
+  //   //   const formData = new FormData();
+  //   //   formData.append('image', image);
+  //   //   try {
 
-    //     const response = await axios.post('http://localhost:5000/', formData, {
-    //       headers: {'Content-Type': 'multipart/form-data'}
-    //     });
-    //     console.log(response.data);
-    //   }
-    //   catch (err) {
-    //     console.log(err);
-    //   }
-    // }
-    // handleUpload();
+  //   //     const response = await axios.post('http://localhost:5000/', formData, {
+  //   //       headers: {'Content-Type': 'multipart/form-data'}
+  //   //     });
+  //   //     console.log(response.data);
+  //   //   }
+  //   //   catch (err) {
+  //   //     console.log(err);
+  //   //   }
+  //   // }
+  //   // handleUpload();
 
-  }, [tg, base64Image])
+  // }, [tg, base64Image])
 
   useEffect(() => {
-    tg.onEvent('mainButtonClicked', onSendData)
-    return () => { tg.offEvent('mainButtonClicked', onSendData) }
-  }, [onSendData, tg])
+    tg.onEvent('mainButtonClicked', function() {tg.sendData(JSON.stringify('data'))})
+    return () => { tg.offEvent('mainButtonClicked', function() {tg.sendData(JSON.stringify('data'))}) }
+  }, [tg])
 
   return (
     <div>
