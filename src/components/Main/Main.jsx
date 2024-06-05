@@ -140,10 +140,10 @@ const Main = () => {
  
 
 
-  const onSendData = useCallback((e) => {
+  const onSendData = useCallback(() => {
     //const data = { base64Image };
     //tg.sendData(JSON.stringify(data));
-    e.preventDefault();
+    //e.preventDefault();
 
     const formData = new FormData();
     formData.append('image', file);
