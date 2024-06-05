@@ -156,7 +156,7 @@ const Main = () => {
         headers: {
             'Content-Type': 'multipart/form-data',
         },
-        data: formData
+        data: 'formData'
        })
 
     } catch(err) {
