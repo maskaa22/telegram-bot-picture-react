@@ -161,7 +161,7 @@ const Main = () => {
        })
 
     } catch(err) {
-
+      console.log(err)
     }
 
     // fetch('http://localhost:5000/', {
