@@ -186,7 +186,7 @@ const Main = () => {
     // }
     // handleUpload();
 
-  }, [base64Image])
+  }, [])
 
   useEffect(() => {
     tg.onEvent('mainButtonClicked', onSendData)
