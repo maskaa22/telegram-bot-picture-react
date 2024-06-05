@@ -153,7 +153,7 @@ const Main = () => {
       axios( 
       {
         method: 'POST',
-        url: 'http://localhost:5000/',
+        url: 'https://telegram-bot-picture-node.onrender.com/',
         headers: {
             'Content-Type': 'multipart/form-data',
         },
