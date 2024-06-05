@@ -71,6 +71,8 @@ const Main = () => {
 
 
   const [selectedImage, setSelectedImage] = useState(null);
+  const [file, setFile] = useState(null);
+  const [uploaded, setUploaded] = useState(false);
 
 
   // const fileToBase64 = (file) => {
@@ -84,44 +86,26 @@ const Main = () => {
   //   })
   // }
 
-const [base64Image, setBase64Image] = useState('');
+//const [base64Image, setBase64Image] = useState('');
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
+    setFile(e.target.files[0])
 
     try {
       setSelectedImage(URL.createObjectURL(file));
       tg.MainButton.show();
       
-      const reader = new FileReader();
-
-      // reader.onloadend = () => {
-      //         setBase64Image(reader.result);
-      //       };
-        
-      //       if(file) {
-      //         reader.readAsDataURL(file);
-      //       }
-
-      reader.addEventListener('load', () => {
-        setBase64Image(reader.result);
-      })
-      reader.readAsDataURL(file);
-
-
-      // reader.onload = function(event) {
-      //   const qq = event.target.result.split(',')[1];
-      //   setBase64Image(qq);
-      // }
-
-      // await setBase64Image(fileToBase64(file))
-
+      // const reader = new FileReader();
+      // reader.addEventListener('load', () => {
+      //   setBase64Image(reader.result);
+      // })
+      // reader.readAsDataURL(file);
     } catch (err) {
-
-    }
-
-    
+      console.log(err);
+    } 
   }
+
   
 
   // const handleUpload = async (e) => {
@@ -156,17 +140,35 @@ const [base64Image, setBase64Image] = useState('');
  
 
 
-  const onSendData = useCallback(() => {
-    const data = { base64Image };
+  const onSendData = useCallback((e) => {
+    //const data = { base64Image };
     //tg.sendData(JSON.stringify(data));
+    e.preventDefault();
 
-    fetch('http://localhost:5000/', {
-             method: 'POST',
-             headers: {
-                 'Content-Type': 'application/json',
-             },
-             body: JSON.stringify(data)
-         })
+    const formData = new FormData();
+    formData.append('image', file);
+    try {
+
+      fetch('http://localhost:5000/', 
+      {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'multipart/form-data',
+        },
+        body: formData
+       })
+
+    } catch(err) {
+
+    }
+
+    // fetch('http://localhost:5000/', {
+    //          method: 'POST',
+    //          headers: {
+    //              'Content-Type': 'application/json',
+    //          },
+    //          body: JSON.stringify(data)
+    //      })
 
     // const handleUpload = async () => {
     //   const formData = new FormData();
