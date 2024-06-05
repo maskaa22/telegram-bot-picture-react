@@ -106,6 +106,7 @@ const Main = () => {
     } 
   }
 
+  console.log(file)
   
 
   // const handleUpload = async (e) => {
@@ -156,7 +157,7 @@ const Main = () => {
         headers: {
             'Content-Type': 'multipart/form-data',
         },
-        body: formData
+        data: formData
        })
 
     } catch(err) {
