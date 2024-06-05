@@ -149,13 +149,14 @@ const Main = () => {
     formData.append('image', file);
     try {
 
-      fetch('http://localhost:5000/', 
+      axios( 
       {
         method: 'POST',
+        url: 'http://localhost:5000/',
         headers: {
             'Content-Type': 'multipart/form-data',
         },
-        body: formData
+        data: formData
        })
 
     } catch(err) {
