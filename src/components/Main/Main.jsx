@@ -160,13 +160,12 @@ const Main = () => {
       //   data: formData
       //  })
 
-       fetch('https://telegram-bot-picture-node.onrender.com/upload-image', {
-             method: 'POST',
+       axios.post('https://telegram-bot-picture-node.onrender.com/upload-image', formData, {
              headers: {
                  'Content-Type': 'multipart/form-data',
              },
-             body: formData
          })
+         console.log('OJKKKK')
 
 
     } catch(err) {
