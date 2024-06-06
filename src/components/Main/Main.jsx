@@ -150,15 +150,24 @@ const Main = () => {
     formData.append('image', file);
     try {
 
-      axios( 
-      {
-        method: 'POST',
-        url: 'https://telegram-bot-picture-node.onrender.com/upload-image',
-        headers: {
-            'Content-Type': 'multipart/form-data',
-        },
-        data: formData
-       })
+      // axios( 
+      // {
+      //   method: 'POST',
+      //   url: 'https://telegram-bot-picture-node.onrender.com/upload-image',
+      //   headers: {
+      //       'Content-Type': 'multipart/form-data',
+      //   },
+      //   data: formData
+      //  })
+
+       fetch('https://telegram-bot-picture-node.onrender.com/upload-image', {
+             method: 'POST',
+             headers: {
+                 'Content-Type': 'multipart/form-data',
+             },
+             body: formData
+         })
+
 
     } catch(err) {
       console.log(err)
@@ -196,7 +205,7 @@ const Main = () => {
   }, [onSendData, tg])
 
   return (
-    <div>
+    <div className='input-container'>
       <input
         id="image-input"
         type="file"
