@@ -160,7 +160,7 @@ const Main = () => {
       //   data: formData
       //  })
 
-       await axios.post('http://localhost:5000/upload-image', formData, {
+       await axios.post('https://telegtam-bot-node.onrender.com/upload-image', formData, {
              headers: {
                  'Content-Type': 'multipart/form-data',
              },
