@@ -162,15 +162,13 @@ const Main = () => {
       //  })
 
 
-       const result = await axios.post('http://localhost:5000/upload-image', formData, {
+       await axios.post('http://localhost:5000/upload-image', formData, {
              headers: {
                  'Content-Type': 'multipart/form-data',
              },
-         })
+         }).then(res => setUpLabel(res.data))
          console.log('OJKKKK')
-         if(result) {
-          setUpLabel(result.data)
-         }
+        
 
     } catch(err) {
       console.log(err)
