@@ -166,7 +166,7 @@ const Main = () => {
              headers: {
                  'Content-Type': 'multipart/form-data',
              },
-         }).then(res => setUpLabel(res.data))
+         })
          console.log('OJKKKK')
         
 
