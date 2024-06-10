@@ -161,7 +161,6 @@ const Main = () => {
       //   data: formData
       //  })
 
-    
 
        const result = await axios.post('http://localhost:5000/upload-image', formData, {
              headers: {
