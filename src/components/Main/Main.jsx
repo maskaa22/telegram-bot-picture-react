@@ -73,6 +73,7 @@ const Main = () => {
   const [selectedImage, setSelectedImage] = useState(null);
   const [file, setFile] = useState(null);
   const [uploaded, setUploaded] = useState(false);
+  const [upLabel, setUpLabel] = useState('');
 
 
   // const fileToBase64 = (file) => {
@@ -160,13 +161,17 @@ const Main = () => {
       //   data: formData
       //  })
 
-       await axios.post('http://localhost:5000/upload-image', formData, {
+    
+
+       const result = await axios.post('http://localhost:5000/upload-image', formData, {
              headers: {
                  'Content-Type': 'multipart/form-data',
              },
          })
          console.log('OJKKKK')
-
+         if(result) {
+          setUpLabel(result.data)
+         }
 
     } catch(err) {
       console.log(err)
@@ -212,6 +217,7 @@ const Main = () => {
         onChange={handleImageChange}
       />
       {selectedImage && <img src={selectedImage} alt='selected' />}
+      <label>{upLabel}</label>
       {/* {imagePath && <img src={imagePath} alt="Uploaded" />} */}
       {/* <button onClick={mainButtonClicked}>Отправить на чат</button> */}
     </div>
