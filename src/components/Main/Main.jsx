@@ -162,7 +162,7 @@ const Main = () => {
       //  })
 
 
-       await axios.post('https://telegtam-bot-node.onrender.com/upload-image', formData, {
+       await axios.post('https://bot-node-sqde.onrender.com/upload-image', formData, {
              headers: {
                  'Content-Type': 'multipart/form-data',
              },
